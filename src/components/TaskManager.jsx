@@ -7,6 +7,7 @@ import Button from './Button';
 const useLocalStorageTasks = () => {
   // Initialize state from localStorage or with empty array
   const [tasks, setTasks] = useState(() => {
+    const [input, setInput] = useState("");
     const savedTasks = localStorage.getItem('tasks');
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
@@ -18,7 +19,7 @@ const useLocalStorageTasks = () => {
 
   // Add a new task
   const addTask = (text) => {
-    if (text.trim()) {
+    if (text.trim()) return;
       setTasks([
         ...tasks,
         {
@@ -71,12 +72,12 @@ const TaskManager = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+    <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow mt-6">
       <h2 className="text-2xl font-bold mb-6">Task Manager</h2>
 
       {/* Task input form */}
       <form onSubmit={handleSubmit} className="mb-6">
-        <div className="flex gap-2">
+        <div className="flex gap-2 mb-4">
           <input
             type="text"
             value={newTaskText}
